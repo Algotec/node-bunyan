@@ -390,6 +390,35 @@ log.levels(0, "info")           // can use "info" et al aliases
 log.levels("foo", WARN)         // set stream named "foo" to WARN
 ```
 
+## Creating new Levels
+
+You can register a new level:
+ 
+ ```js
+ var bunyan = require('bunyan');
+ 
+ bunyan.createLevel('notice', 35);
+ ```
+ 
+ .. at which point that level is usable in (most of) the normal ways:
+ 
+ 
+ ```js
+ log.level("notice")    // set all streams to level NOTICE
+ log.notice("this will be logged at level 35");
+ 
+ log.level("info")      // set all streams to level INFO
+ log.notice("this will not be logged");
+ ```
+ 
+ There are some caveats:
+ 
+   1. If you require DTrace support (see below), you need to create
+    new levels prior to instantiating Loggers; levels will work if
+    you do it the other way around, but DTrace won't be fired.
+   2. No constants are defined for dynamically created levels; you'll
+    need to track your level values yourself.
+
 # Log Record Fields
 
 This section will describe *rules* for the Bunyan log format: field names,
