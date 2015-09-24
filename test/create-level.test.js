@@ -53,6 +53,14 @@ test('bunyan.createLevel(<existing name>, ...)', function (t) {
     t.end();
 });
 
+test('bunyan.createLevel(<existing non-lowercase name>, ...)', function (t) {
+    t.throws(function () { bunyan.createLevel('iNFo', 10); },
+        /* JSSTYLED */
+        /level 'info' already exists/);
+
+    t.end();
+});
+
 test('bunyan.createLevel(<existing prototype>, ...)', function (t) {
     t.throws(function () { bunyan.createLevel('child', 10); },
         /* JSSTYLED */
@@ -77,7 +85,15 @@ test('bunyan.createLevel(..., <existing level>)', function (t) {
     t.end();
 });
 
-test('bunyan.createLevel()', function (t) {
+test('bunyan.createLevel(..., <not-a-number>)', function (t) {
+    t.throws(function () { bunyan.createLevel('abc', {}); },
+        /* JSSTYLED */
+        /level \(number\) is required/);
+
+    t.end();
+});
+
+test('bunyan.createLevel(<name>, <number>)', function (t) {
     bunyan.createLevel('createlevel_test', 1);
     t.end();
 });

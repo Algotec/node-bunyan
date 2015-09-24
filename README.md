@@ -405,9 +405,9 @@ You can register a new level:
  
  ```js
  log.level("notice")    // set all streams to level NOTICE
- log.notice("this will be logged at level 35");
+ log.notice("this will be logged");
  
- log.level("info")      // set all streams to level INFO
+ log.level("warn")      // set all streams to level WARN
  log.notice("this will not be logged");
  ```
  
